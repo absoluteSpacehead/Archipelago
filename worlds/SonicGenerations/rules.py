@@ -18,7 +18,7 @@ def set_all_location_rules(world: SonicGensWorld) -> None:
     set_rule(world.get_location(names.Locations.EGreen), lambda state: state.can_reach_region(names.Regions.BDE, world.player))
     set_rule(world.get_location(names.Locations.EYellow), lambda state: state.can_reach_region(names.Regions.BSD, world.player))
     set_rule(world.get_location(names.Locations.EBlue), lambda state: state.can_reach_region(names.Regions.BPC, world.player))
-    set_rule(world.get_location(names.Locations.ERed), lambda state: state.can_reach_region(names.Regions.PLA2, world.player)) # TODO: do you get this regardless of what your last level in modern era is?
+    set_rule(world.get_location(names.Locations.ERed), lambda state: state.can_reach_region(names.Regions.PLA1, world.player) and state.can_reach_region(names.Regions.PLA2, world.player)) # you recieve the emerald after clearing both stages, regardless of which you do first
     set_rule(world.get_location(names.Locations.EWhite), lambda state: state.can_reach_region(names.Regions.BSL, world.player))
     set_rule(world.get_location(names.Locations.ECyan), lambda state: state.can_reach_region(names.Regions.BNE, world.player))
 
