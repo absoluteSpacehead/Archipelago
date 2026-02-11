@@ -13,11 +13,15 @@ class SonicGensWorld(World):
 
     game = names.GameName
 
+    web = web_world.SonicGensWebWorld()
+
     options_dataclass = gens_options.SonicGensOptions
     options: gens_options.SonicGensOptions
 
     location_name_to_id = locations.LOCATION_NAME_TO_ID
     item_name_to_id = items.get_item_names_to_id()
+
+    item_name_groups = items.item_groups
 
     origin_region_name = names.Regions.WSClassic
 

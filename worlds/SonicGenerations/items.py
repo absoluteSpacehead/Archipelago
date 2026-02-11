@@ -35,6 +35,32 @@ ITEM_NAME_TO_INFO = {
     names.Items.BKPLA:      ItemInfo(58, ItemClassification.progression)
 }
 
+item_groups: dict[str, set[str]] = {
+    names.Groups.ChaosEmeralds: {
+        names.Items.EGreen,
+        names.Items.EPurple,
+        names.Items.EBlue,
+        names.Items.EYellow,
+        names.Items.ERed,
+        names.Items.ECyan,
+        names.Items.EWhite
+    },
+    names.Groups.BossKeys: {
+        names.Items.BKGHZ,
+        names.Items.BKCPZ,
+        names.Items.BKSSZ,
+        names.Items.BKSPH,
+        names.Items.BKCTE,
+        names.Items.BKSSH,
+        names.Items.BKCSC,
+        names.Items.BKEUC,
+        names.Items.BKPLA
+    },
+    names.Groups.Filler: {
+        names.Items.Nothing
+    }
+}
+
 def get_item_names_to_id() -> dict[str, int]:
     return {name: ITEM_NAME_TO_INFO[name].id for name in ITEM_NAME_TO_INFO.keys()}
 

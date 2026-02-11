@@ -50,6 +50,11 @@ class Items:
     BKEUC           = "Boss Key: Rooftop Run"
     BKPLA           = "Boss Key: Planet Wisp"
 
+class Groups:
+    ChaosEmeralds   = "Chaos Emerald"
+    BossKeys        = "Boss Key"
+    Filler          = "Filler"
+
 class Locations:
     EGreen          = Items.EGreen
     ERed            = Items.ERed
