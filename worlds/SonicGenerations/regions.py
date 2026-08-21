@@ -19,6 +19,7 @@ def create_entrance(eFrom: Region, eTo:Region, rule: Optional[Callable[[Collecti
     
     return res
 
+# TODO: mission regions, one per era. not priority unless i decide i hate myself enough for move rando because then access to all missions will depend on whatever the levels in that era require
 def create_and_connect_regions(world: SonicGensWorld) -> None:
     wsce    = create_region(names.Regions.WSClassic, world)
     wsde    = create_region(names.Regions.WSDreamcast, world)
@@ -52,7 +53,6 @@ def create_and_connect_regions(world: SonicGensWorld) -> None:
 
     world.multiworld.regions += [wsce, wsde, wsme, ghz1, ghz2, cpz1, cpz2, ssz1, ssz2, bms, bde, sph1, sph2, cte1, cte2, ssh1, ssh2, bsd, bpc, csc1, csc2, euc1, euc2, pla1, pla2, bsl, bne, blb]
 
-    # TODO: will it be OK to bombard the player with all 30 missions per area even when the main acts havent been cleared yet? i personally dont believe so but could do with a second opinion on this (and knowledge of how to add that requirement)
     create_entrance(wsce, ghz1)
     create_entrance(wsce, ghz2)
     create_entrance(wsce, cpz1)
