@@ -1,8 +1,6 @@
-from collections.abc import Mapping
 from typing import Any
-
 from worlds.AutoWorld import World
-
+from BaseClasses import MultiWorld
 from . import items, locations, regions, rules, web_world, names
 from . import options as gens_options
 
@@ -25,6 +23,11 @@ class SonicGensWorld(World):
 
     origin_region_name = names.Regions.WSClassic
 
+    def __init__(self, multiworld: MultiWorld, player: int):
+        super().__init__(multiworld, player)
+
+        self.required_collection_count = -1
+
     def create_regions(self) -> None:
         regions.create_and_connect_regions(self)
         locations.create_all_locations(self)
@@ -41,5 +44,13 @@ class SonicGensWorld(World):
     def get_filler_item_name(self) -> str:
         return items.get_random_filler_item_name(self)
 
-    def fill_slot_data(self) -> Mapping[str, Any]:
-        return self.options.as_dict("hard_bosses", "challenges")
+    def fill_slot_data(self) -> dict[str, Any]:
+        result: dict[str, Any] = {}
+
+        if self.options.hard_bosses:
+            result["hard_bosses"] = True
+        
+        if self.options.collection_required:
+            result["required_collection_count"] = self.required_collection_count
+
+        return result
