@@ -1,9 +1,6 @@
 from __future__ import annotations
-
-from typing import TYPE_CHECKING, Callable, Optional
-
-from BaseClasses import CollectionState, Region, Entrance
-
+from typing import TYPE_CHECKING
+from BaseClasses import Region, Entrance
 from . import names
 
 if TYPE_CHECKING:
@@ -12,10 +9,10 @@ if TYPE_CHECKING:
 def create_region(name: str, world: SonicGensWorld) -> Region:
     return Region(name, world.player, world.multiworld)
 
-def create_entrance(eFrom: Region, eTo:Region, rule: Optional[Callable[[CollectionState], bool]] = None):
+def create_entrance(eFrom: Region, eTo:Region):
     name:str = names.create_entrance_name(eFrom.name, eTo.name)
     
-    res: Entrance = eFrom.connect(eTo, name, rule)
+    res: Entrance = eFrom.connect(eTo, name)
     
     return res
 
@@ -59,9 +56,9 @@ def create_and_connect_regions(world: SonicGensWorld) -> None:
     create_entrance(wsce, cpz2)
     create_entrance(wsce, ssz1)
     create_entrance(wsce, ssz2)
-    world.multiworld.register_indirect_condition(ssz2, create_entrance(wsce, bms, lambda state: state.can_reach_region(names.Regions.SSZ2, world.player)))
-    create_entrance(wsce, bde, lambda state: state.has_all([names.Items.BKGHZ, names.Items.BKCPZ, names.Items.BKSSZ], world.player))
-    world.multiworld.register_indirect_condition(bde, create_entrance(wsce, wsde, lambda state: state.can_reach_region(names.Regions.BDE, world.player)))
+    create_entrance(wsce, bms)
+    create_entrance(wsce, bde)
+    create_entrance(wsce, wsde)
 
     create_entrance(wsde, sph1)
     create_entrance(wsde, sph2)
@@ -69,9 +66,9 @@ def create_and_connect_regions(world: SonicGensWorld) -> None:
     create_entrance(wsde, cte2)
     create_entrance(wsde, ssh1)
     create_entrance(wsde, ssh2)
-    world.multiworld.register_indirect_condition(ssh2, create_entrance(wsde, bsd, lambda state: state.can_reach_region(names.Regions.SSH2, world.player)))
-    create_entrance(wsde, bpc, lambda state: state.has_all([names.Items.BKSPH, names.Items.BKCTE, names.Items.BKSSH], world.player))
-    world.multiworld.register_indirect_condition(bpc, create_entrance(wsde, wsme, lambda state: state.can_reach_region(names.Regions.BPC, world.player)))
+    create_entrance(wsde, bsd)
+    create_entrance(wsde, bpc)
+    create_entrance(wsde, wsme)
 
     create_entrance(wsme, csc1)
     create_entrance(wsme, csc2)
@@ -79,7 +76,6 @@ def create_and_connect_regions(world: SonicGensWorld) -> None:
     create_entrance(wsme, euc2)
     create_entrance(wsme, pla1)
     create_entrance(wsme, pla2)
-    world.multiworld.register_indirect_condition(pla2, create_entrance(wsme, bsl, lambda state: state.can_reach_region(names.Regions.PLA2, world.player)))
-    create_entrance(wsme, bne, lambda state: state.has_all([names.Items.BKCSC, names.Items.BKEUC, names.Items.BKPLA], world.player))
-    world.multiworld.register_indirect_condition(bne, create_entrance(wsme, blb, lambda state: state.has_all([names.Items.EGreen, names.Items.EPurple, names.Items.EBlue, names.Items.EYellow, names.Items.ERed, names.Items.ECyan, names.Items.EWhite], world.player) and
-                                                                                        state.can_reach_region(names.Regions.BNE, world.player)))
+    create_entrance(wsme, bsl)
+    create_entrance(wsme, bne)
+    create_entrance(wsme, blb)
