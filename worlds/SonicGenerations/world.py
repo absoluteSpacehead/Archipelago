@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Dict
 from worlds.AutoWorld import World
 from BaseClasses import MultiWorld
 from . import items, locations, regions, rules, web_world, names
@@ -28,6 +28,17 @@ class SonicGensWorld(World):
 
         self.required_collection_count = -1
 
+    @staticmethod
+    def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
+        return slot_data
+
+    def generate_early(self) -> None:
+        if hasattr(self.multiworld, "generation_is_fake"):
+            if hasattr(self.multiworld, "re_gen_passthrough"):
+                if names.GameName in self.multiworld.re_gen_passthrough:
+                    slot_data: Dict[str, Any] = self.multiworld.re_gen_passthrough[names.GameName]
+                    self.required_collection_count = slot_data["required_collection_count"]
+                
     def create_regions(self) -> None:
         regions.create_and_connect_regions(self)
         locations.create_all_locations(self)

@@ -112,13 +112,20 @@ def create_all_items(world: SonicGensWorld) -> None:
     if world.options.collection_required:
         # if there are fewer locations than we want, we will end up placing them in blb clear when trying to fill all slots, which then becomes impossible to reach
         # so, we need to subtract them from our available slot count
+        # note that additional collection items can still get placed there if theres enough locations, but there will always be the required amount outside it so they wont be inaccessible
         num_target -= len(world.get_region(names.Regions.BLB).get_locations())
 
-        # get pct, round up, cap to available slots
-        target: int = min(math.ceil(90.0 * (world.options.required_collection_percent / 100.0)), num_target)
+        print(world.required_collection_count)
 
-        # this is sent to the client to determine whether player should be able to enter blb
-        world.required_collection_count = target
+        # count in world object will be set if this is UT regen
+        if world.required_collection_count == -1:
+            # get pct, round up, cap to available slots
+            target: int = min(math.ceil(90.0 * (world.options.required_collection_percent / 100.0)), num_target)
+
+            # this is sent to the client to determine whether player should be able to enter blb
+            world.required_collection_count = target
+        else:
+            target = world.required_collection_count
 
         # then, add the additional items, capping to the maximum 90 or the available slots (whichever is lower)
         target = min(target + world.options.additional_collection_items, min(90, num_target))
